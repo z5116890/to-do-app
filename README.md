@@ -7,7 +7,7 @@ checkout TodoMVC
 
 assume that the frontend will make request to backend for every single operation, build all endpoints to service the FE based on that assumption
 
-## cGood to have but not required
+## Good to have but not required
 
 ajv with express input validation
 
