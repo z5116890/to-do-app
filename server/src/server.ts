@@ -4,7 +4,11 @@ import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 
-dotenv.config();
+if (process.env.DOTENV) {
+    dotenv.config({ path: process.env.DOTENV })
+} else {
+    dotenv.config() //.env
+}
 
 console.log(`DB_USER = `, process.env.DB_USER)
 
