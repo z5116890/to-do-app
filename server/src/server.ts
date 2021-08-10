@@ -3,15 +3,18 @@ const cors = require('cors');
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
-require('dotenv').config({path:__dirname+'/./../../.env'});
+
 dotenv.config();
+
+console.log(`DB_USER = `, process.env.DB_USER)
+
 const mysql = require('mysql2')
 // create the connection to database
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'Akabana247!',
-    database: 'todo'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME
 });
 const app: Express = express();
 
@@ -35,7 +38,7 @@ app.get('/', (req : Request, res : Response) => {
 
 app.post('/', (req : Request, res : Response) => {
     console.log('hello')
-    connection.query('INSERT INTO items (id, todo, completed) VALUES (?,?,?)', [req.body.id, req.body.todo, req.body.completed],(error : any, 
+    connection.query('INSERT INTO items (id, todo, completed) VALUES (?,?,?)', [req.body.id, req.body.todo, req.body.completed],(error : any,
         results : any) => {
      if (error) return res.json({ error: error });
      });
@@ -53,7 +56,7 @@ app.delete('/', function (req : Request, res : Response) {
 app.put('/', (req : Request, res : Response) => {
     console.log('updating')
     console.log(req.body)
-    connection.query('UPDATE items SET completed = NOT completed WHERE id = (?)', [req.body.id],(error : any, 
+    connection.query('UPDATE items SET completed = NOT completed WHERE id = (?)', [req.body.id],(error : any,
         results : any) => {
         if (error) return res.json({ error: error });
     });
