@@ -3,6 +3,7 @@ const cors = require('cors');
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
+import { setupRoutes } from './routes';
 
 if (process.env.DOTENV) {
     dotenv.config({ path: process.env.DOTENV })
@@ -21,6 +22,7 @@ const connection = mysql.createConnection({
     database: process.env.DB_NAME
 });
 const app: Express = express();
+const router = express.Router()
 
 //allows you to make requests from one website to another website in the browser
 app.use(cors());
@@ -28,6 +30,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 
+setupRoutes(router)
+
+app.use(router)
 
 app.get('/', (req : Request, res : Response) => {
     console.log(process.env.DB_USER)
