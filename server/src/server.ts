@@ -3,6 +3,7 @@ const cors = require('cors');
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
+require('dotenv').config({path:__dirname+'/./../../.env'});
 dotenv.config();
 const mysql = require('mysql2')
 // create the connection to database
@@ -22,6 +23,7 @@ app.use(helmet());
 
 
 app.get('/', (req : Request, res : Response) => {
+    console.log(process.env.DB_USER)
     connection.query(
         'SELECT * FROM items;',
         function(err : any, results : any, fields : any) {
