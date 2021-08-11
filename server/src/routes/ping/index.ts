@@ -1,3 +1,6 @@
-import { get } from './get'
+import { getTodoItems } from './get'
+import { insertTodoItem } from './post'
+import { updateTodoItem } from './patch'
+import { deleteTodoItem } from './delete'
 
-export { get }
+export { getTodoItems, insertTodoItem, updateTodoItem, deleteTodoItem }

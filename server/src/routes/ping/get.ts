@@ -1,15 +1,17 @@
-import { NextFunction, Request, Response } from 'express'
+import { Request, Response } from 'express'
+import { getItems } from '../../services/dbOperations'
 
-export const get = async (req: Request, res: Response, next: NextFunction) => {
+
+// get all items from database
+export const getTodoItems = (req: Request, res: Response) => {
 
   try {
 
-    res.json({ message: 'pong' })
+    return getItems(req, res)
 
   } catch (err) {
 
-    console.error('failed to get Ping reply', { err })
-    return next(err)
+    console.error('failed to get get items', { err })
 
   }
 

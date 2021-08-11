@@ -15,12 +15,14 @@ console.log(`DB_USER = `, process.env.DB_USER)
 
 const mysql = require('mysql2')
 // create the connection to database
-const connection = mysql.createConnection({
+
+export const connection = mysql.createConnection({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME
 });
+
 const app: Express = express();
 const router = express.Router()
 
