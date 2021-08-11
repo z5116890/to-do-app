@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf dist && tsc",
     "preserve": "npm run build",
-    "serve": "concurrently \"tsc --watch\" \"nodemon -q dist/server.js\"",
+    "serve": "concurrently \"tsc --watch\" \"nodemon -q dist/src/server.js\"",
     "prestart": "npm run build",
     "start": "npm run build && ts-node src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"

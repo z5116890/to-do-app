@@ -1,5 +1,5 @@
-import { connection } from '../server';
 import { Request, Response } from 'express';
+import { connection } from '../../db';
 
 // return all items for item table
 export const getItems = (req : Request, res : Response) => {

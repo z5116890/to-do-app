@@ -1,10 +1,10 @@
 import { Router } from 'express'
-import * as ping from './ping'
+import * as items from './items'
 
 export const setupRoutes = (router: Router): void => {
 
-  router.get('/', ping.getTodoItems)
-  router.delete('/', ping.deleteTodoItem)
-  router.post('/', ping.insertTodoItem)
-  router.patch('/', ping.updateTodoItem)
+  router.get('/', items.getTodoItems)
+  router.delete('/', items.deleteTodoItem)
+  router.post('/', items.insertTodoItem)
+  router.patch('/', items.updateTodoItem)
 }

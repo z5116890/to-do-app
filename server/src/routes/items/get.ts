@@ -6,7 +6,7 @@ import { getItems } from '../../services/dbOperations'
 export const getTodoItems = (req: Request, res: Response) => {
 
   try {
-
+    // handles query
     return getItems(req, res)
 
   } catch (err) {
