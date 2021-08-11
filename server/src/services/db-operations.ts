@@ -1,43 +1,46 @@
+import { rejects } from 'assert';
 import { Request, Response } from 'express';
 import { connection } from '../../db';
 
 // return all items for item table
-export const getItems = (req : Request, res : Response) => {
-    console.log('hello')
-    console.log(req.body.id)
-    connection.query('select * from items', (error : any, results : any) => {
-        console.log(results)
-        if (error) {
-            return res.json({ error: error })
-        }
-        return res.json(results);
-     });
-}
+export const getItems = async function () {
+    return new Promise((resolve, reject) => {
+        console.log('hello');
+        connection.query('select * from items', (error, rows) => {
+            if (error) {
+                reject(error);
+            }
+            console.log('showing', rows);
+            resolve(rows);
+        });
+    })
+};
 
 //insert item into items table
-export const insertItem = (req : Request, res : Response) => {
-    console.log('hello')
-    connection.query('INSERT INTO items (id, todo, completed) VALUES (?,?,?)', [req.body.id, req.body.todo, req.body.completed],(error : any,
-        results : any) => {
-     if (error) return res.json({ error: error });
-     });
+export const insertItem = async function(req : Request) {
+    return new Promise((resolve, reject) => {
+        connection.query('INSERT INTO items (id, todo, completed) VALUES (?,?,?)', [req.body.id, req.body.todo, req.body.completed],(error : any, results : any) => {
+            if (error) reject(error);
+            resolve(results);
+        })
+    });
 
 }
 
-export const deleteItem = function (req : Request, res : Response) {
-    console.log('trying to delete');
-    console.log(req.body.id);
-    connection.query('DELETE FROM items where id = (?)', [req.body.id], function (error : any, results : any) {
-        if (error) return res.json({ error: error });
-        console.log(results)
+export const deleteItem = function (req : Request) {
+    return new Promise((resolve, reject) => {
+        connection.query('DELETE FROM items where id = (?)', [req.body.id], (error : any, results : any) => {
+            if (error) reject(error);
+            resolve(results);
+        })
     });
 }
 
-export const updateItem = (req : Request, res : Response) => {
-    console.log('updating')
-    console.log(req.body)
-    connection.query('UPDATE items SET completed = NOT completed WHERE id = (?)', [req.body.id],(error : any,
-        results : any) => {
-        if (error) return res.json({ error: error });
+export const updateItem = (req : Request) => {
+    return new Promise((resolve, reject) => {
+        connection.query('UPDATE items SET completed = NOT completed WHERE id = (?)', [req.body.id],(error : any, results : any) => {
+            if (error) return reject(error);
+            resolve(results);
+        })
     });
 };

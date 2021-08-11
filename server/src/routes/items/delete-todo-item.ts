@@ -6,8 +6,13 @@ import { deleteItem } from '../../services/db-operations'
 export const deleteTodoItem = (req: Request, res: Response) => {
 
   try {
+    deleteItem(req)
+    .then((result) => {
+      console.log(result)
+      return res.json(result);
 
-    return deleteItem(req, res)
+    })
+    .catch((err) => { console.log(err) });
 
   } catch (err) {
 

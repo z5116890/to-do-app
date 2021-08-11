@@ -6,7 +6,13 @@ import { getItems } from '../../services/db-operations'
 export const getTodoItems = (req: Request, res: Response) => {
   try {
     // handles query
-    return getItems(req, res)
+    getItems()
+    .then((result) => {
+      console.log(result)
+      return res.json(result);
+
+    })
+    .catch((err) => { console.log(err) });
 
   } catch (err) {
 

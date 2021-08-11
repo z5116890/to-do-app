@@ -7,7 +7,13 @@ export const updateTodoItem = (req: Request, res: Response) => {
 
   try {
 
-    return updateItem(req, res)
+    updateItem(req)
+    .then((result) => {
+      console.log(result)
+      return res.json(result);
+
+    })
+    .catch((err) => { console.log(err) });
 
   } catch (err) {
 

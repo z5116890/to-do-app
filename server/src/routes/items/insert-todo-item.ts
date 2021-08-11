@@ -6,9 +6,13 @@ import { insertItem } from '../../services/db-operations'
 export const insertTodoItem = (req: Request, res: Response) => {
 
   try {
-    console.log(req.body)
-    return insertItem(req, res)
+    insertItem(req)
+    .then((result) => {
+      console.log(result)
+      return res.json(result);
 
+    })
+    .catch((err) => { console.log(err) });
   } catch (err) {
 
     console.error('failed to get insert item', { err })
