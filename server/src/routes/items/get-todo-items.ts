@@ -1,10 +1,9 @@
 import { Request, Response } from 'express'
-import { getItems } from '../../services/dbOperations'
+import { getItems } from '../../services/db-operations'
 
 
 // get all items from database
 export const getTodoItems = (req: Request, res: Response) => {
-
   try {
     // handles query
     return getItems(req, res)

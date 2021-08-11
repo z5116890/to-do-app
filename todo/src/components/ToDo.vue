@@ -105,7 +105,7 @@ export default {
         if (this.all[i].todo === item.todo) {
           this.all[i].completed = !this.all[i].completed
         }
-        axios.put('http://localhost:4000/', {
+        axios.patch('http://localhost:4000/', {
           id: item.id
         })
           .then(response => {
@@ -123,6 +123,7 @@ export default {
     axios
       .get('http://localhost:4000')
       .then(response => {
+        console.log(response)
         for (let i = 0; i < response.data.length; i++) {
           this.all.push({ id: response.data[i].id, todo: response.data[i].todo, completed: Boolean(response.data[i].completed) })
           this.currId = this.currId + 1

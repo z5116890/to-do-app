@@ -4,9 +4,13 @@ import { connection } from '../../db';
 // return all items for item table
 export const getItems = (req : Request, res : Response) => {
     console.log('hello')
-    connection.query('INSERT INTO items (id, todo, completed) VALUES (?,?,?)', [req.body.id, req.body.todo, req.body.completed],(error : any,
-        results : any) => {
-     if (error) return res.json({ error: error });
+    console.log(req.body.id)
+    connection.query('select * from items', (error : any, results : any) => {
+        console.log(results)
+        if (error) {
+            return res.json({ error: error })
+        }
+        return res.json(results);
      });
 }
 

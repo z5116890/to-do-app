@@ -3,10 +3,7 @@ const cors = require('cors');
 import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import { setupRoutes } from './routes';
-import * as items from './routes/items'
-import dotenv from 'dotenv';
 
-dotenv.config() //.env
 const app: Express = express();
 const router = express.Router()
 
@@ -16,8 +13,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(helmet());
 
+app.use(router);
 setupRoutes(router);
-
 /* do i need this?
 app.use(router)
 

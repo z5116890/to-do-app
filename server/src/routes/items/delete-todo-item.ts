@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { deleteItem } from '../../services/dbOperations'
+import { deleteItem } from '../../services/db-operations'
 
 
 // get all items from database

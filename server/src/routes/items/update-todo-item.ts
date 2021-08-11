@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { updateItem } from '../../services/dbOperations'
+import { updateItem } from '../../services/db-operations'
 
 
 // get all items from database
