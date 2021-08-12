@@ -1,9 +1,12 @@
 import { rejects } from 'assert';
-import { Request, Response } from 'express';
 import { connection } from '../../db';
+import { TodoItem } from '../model/todo-item';
 
 // return all items for item table
 export const getItems = async function () {
+
+    let result: TodoItem
+
     return new Promise((resolve, reject) => {
         console.log('hello');
         connection.query('select * from items', (error, rows) => {
@@ -11,13 +14,32 @@ export const getItems = async function () {
                 reject(error);
             }
             console.log('showing', rows);
+
+            result.id = rows.id
+            result.desc = rows.description
+            result.completed = rows.completed
+
             resolve(rows);
+
+
         });
     })
 };
 
+export const getItems = async function () {
+
+    const rows = await connection.query('select * from items')
+    const result:TodoItem = mappingToTodoItem(rows)
+    return result
+};
+
+type InsertItemRequest = {
+    todo: string
+    completed: boolean
+}
+
 //insert item into items table
-export const insertItem = async function(req : Request) {
+export const insertItem = async function(request: InsertItemRequest) {
     return new Promise((resolve, reject) => {
         connection.query('INSERT INTO items (id, todo, completed) VALUES (?,?,?)', [req.body.id, req.body.todo, req.body.completed],(error : any, results : any) => {
             if (error) reject(error);
