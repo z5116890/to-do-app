@@ -9,6 +9,7 @@ export const getTodoItems = (req: Request, res: Response) => {
     getItems()
     .then((result) => {
       console.log(result)
+
       return res.json(result);
 
     })

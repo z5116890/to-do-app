@@ -105,17 +105,17 @@ export default {
         if (this.all[i].todo === item.todo) {
           this.all[i].completed = !this.all[i].completed
         }
-        axios.patch('http://localhost:4000/', {
-          id: item.id
-        })
-          .then(response => {
-            console.log(response)
-          })
-          .catch(function (error) {
-            console.log(error)
-          })
-        this.loadCompleted()
       }
+      axios.patch('http://localhost:4000/', {
+        id: item.id
+      })
+        .then(response => {
+          console.log(response)
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+      this.loadCompleted()
     }
   },
   mounted () {
@@ -123,8 +123,10 @@ export default {
     axios
       .get('http://localhost:4000')
       .then(response => {
+        console.log('frontend')
         console.log(response)
         for (let i = 0; i < response.data.length; i++) {
+          console.log(response.data[i])
           this.all.push({ id: response.data[i].id, todo: response.data[i].todo, completed: Boolean(response.data[i].completed) })
           this.currId = response.data[i].id + 1
         }

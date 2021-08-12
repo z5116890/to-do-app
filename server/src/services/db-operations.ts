@@ -1,11 +1,10 @@
-import { rejects } from 'assert';
 import { connection } from '../../db';
 import { TodoItem } from '../model/todo-item';
 
 // return all items for item table
 export const getItems = async function () {
 
-    let result: TodoItem
+    let result: TodoItem[];
 
     return new Promise((resolve, reject) => {
         console.log('hello');
@@ -13,35 +12,21 @@ export const getItems = async function () {
             if (error) {
                 reject(error);
             }
-            console.log('showing', rows);
-
-            result.id = rows.id
-            result.desc = rows.description
-            result.completed = rows.completed
-
-            resolve(rows);
-
+            // convert into array of object
+            let rows_obj = JSON.parse(JSON.stringify(rows))
+            // map into type todoitem
+            result = rows_obj.map((row: { id: string; todo: string; completed: string; }) => Object.assign({id: row.id, todo: row.todo, completed: row.completed}))
+            resolve(result);
 
         });
     })
 };
 
-export const getItems = async function () {
-
-    const rows = await connection.query('select * from items')
-    const result:TodoItem = mappingToTodoItem(rows)
-    return result
-};
-
-type InsertItemRequest = {
-    todo: string
-    completed: boolean
-}
 
 //insert item into items table
-export const insertItem = async function(request: InsertItemRequest) {
+export const insertItem = async function(request: TodoItem) {
     return new Promise((resolve, reject) => {
-        connection.query('INSERT INTO items (id, todo, completed) VALUES (?,?,?)', [req.body.id, req.body.todo, req.body.completed],(error : any, results : any) => {
+        connection.query('INSERT INTO items (todo, completed) VALUES (?,?)', [request.todo, request.completed],(error : any, results : any) => {
             if (error) reject(error);
             resolve(results);
         })
@@ -49,18 +34,19 @@ export const insertItem = async function(request: InsertItemRequest) {
 
 }
 
-export const deleteItem = function (req : Request) {
+export const deleteItem = function (request: TodoItem) {
     return new Promise((resolve, reject) => {
-        connection.query('DELETE FROM items where id = (?)', [req.body.id], (error : any, results : any) => {
+        connection.query('DELETE FROM items where id = (?)', [request.id], (error : any, results : any) => {
             if (error) reject(error);
             resolve(results);
         })
     });
 }
 
-export const updateItem = (req : Request) => {
+export const updateItem = (request: TodoItem) => {
     return new Promise((resolve, reject) => {
-        connection.query('UPDATE items SET completed = NOT completed WHERE id = (?)', [req.body.id],(error : any, results : any) => {
+        console.log(request.id)
+        connection.query('UPDATE items SET completed = NOT completed WHERE id = (?)', [request.id],(error : any, results : any) => {
             if (error) return reject(error);
             resolve(results);
         })
