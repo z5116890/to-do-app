@@ -126,7 +126,7 @@ export default {
         console.log(response)
         for (let i = 0; i < response.data.length; i++) {
           this.all.push({ id: response.data[i].id, todo: response.data[i].todo, completed: Boolean(response.data[i].completed) })
-          this.currId = this.currId + 1
+          this.currId = response.data[i].id + 1
         }
       })
       .then(() => {
