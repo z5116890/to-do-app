@@ -61,6 +61,9 @@ export default {
   methods: {
     addItem (event) {
       // add item to all list
+      if (event.target.value === '') {
+        return
+      }
       this.all.push({ id: this.currId, todo: event.target.value, completed: false })
       // add to not completed list
       this.notCompleted = this.all.filter(item => item.completed === false)
@@ -70,7 +73,7 @@ export default {
         completed: false
       })
         .then(response => {
-          console.log(response)
+          console.log('post', response)
         })
         .catch(function (error) {
           console.log(error)

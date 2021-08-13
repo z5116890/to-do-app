@@ -9,7 +9,7 @@
     "serve": "concurrently \"tsc --watch\" \"nodemon -q dist/src/server.js\"",
     "prestart": "npm run build",
     "start": "npm run build && ts-node src/server.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",

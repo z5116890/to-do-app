@@ -1,20 +1,4 @@
-import express, { Express, Request, Response } from 'express';
-const cors = require('cors');
-import bodyParser from 'body-parser';
-import helmet from 'helmet';
-import { setupRoutes } from './routes';
-
-const app: Express = express();
-const router = express.Router()
-
-//allows you to make requests from one website to another website in the browser
-app.use(cors());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(helmet());
-
-app.use(router);
-setupRoutes(router);
+import app from './app'
 /* do i need this?
 app.use(router)
 
@@ -28,3 +12,5 @@ const port = 4000;
 app.listen(port, () => {
     console.log(`listening on ${port}`);
 });
+
+

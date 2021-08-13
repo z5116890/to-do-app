@@ -6,6 +6,9 @@ import { updateItem } from '../../services/db-operations'
 // get all items from database
 export const updateTodoItem = (req: Request, res: Response) => {
   let item: TodoItem = {id: req.body.id, todo: req.body.todo, completed: req.body.completed}
+  if (item.id === undefined) {
+    return res.sendStatus(400)
+  }
   try {
 
     updateItem(item)
